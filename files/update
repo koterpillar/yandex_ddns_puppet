@@ -1,0 +1,24 @@
+#!/bin/sh -e
+
+. $(dirname $0)/environment
+
+# Get the current address
+ADDRESS=$(
+    curl -s http://ipdetect.dnspark.com/ | \
+    grep 'Current Address:' | \
+    sed 's/Current Address: //'
+)
+
+# Get the record ID
+RECORD_ID=$(curl \
+    -s \
+    -H "PddToken: $TOKEN" \
+    $BASE_URL/list\?domain=$DOMAIN | \
+jq -r '.records[] | select(.type == "A") | .content')
+
+# Update the address
+curl \
+    -s \
+    -H "PddToken: $TOKEN" \
+    -d "domain=$DOMAIN&record_id=$RECORD_ID&content=$ADDRESS" \
+    $BASE_URL/edit

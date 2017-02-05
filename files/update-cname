@@ -1,0 +1,19 @@
+#!/bin/sh -e
+
+. $(dirname $0)/environment
+
+# Get the current domain list
+CURRENT_TARGET=$(curl \
+    -s \
+    -H "PddToken: $TOKEN" \
+    $BASE_URL/list\?domain=$DOMAIN | \
+jq -r '.records[] | select(.type == "CNAME") | select(.subdomain == "'$1'") | .content')
+
+if [ "$CURRENT_TARGET" != "$DOMAIN." ]
+then
+    curl \
+        -s \
+        -H "PddToken: $TOKEN" \
+        -d "domain=$DOMAIN&type=CNAME&subdomain=$1&content=$DOMAIN." \
+        $BASE_URL/add
+fi

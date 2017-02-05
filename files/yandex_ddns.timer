@@ -1,0 +1,9 @@
+[Unit]
+Description=Update Yandex DNS record
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=multi-user.target
