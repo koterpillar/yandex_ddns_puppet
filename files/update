@@ -9,12 +9,21 @@ ADDRESS=$(
     sed 's/Current Address: //'
 )
 
-# Get the record ID
-RECORD_ID=$(curl \
+CONFIG=$(curl \
     -s \
     -H "PddToken: $TOKEN" \
-    $BASE_URL/list\?domain=$DOMAIN | \
-jq -r '.records[] | select(.type == "A") | .content')
+    $BASE_URL/list\?domain=$DOMAIN
+)
+
+CURRENT_ADDRESS=$(echo $CONFIG | jq -r '.records[] | select(.type == "A") | .content')
+
+if [ $ADDRESS = $CURRENT_ADDRESS ]
+then
+    echo "Address is current."
+    exit 0
+fi
+
+RECORD_ID=$(echo $CONFIG | jq -r '.records[] | select(.type == "A") | .record_id')
 
 # Update the address
 curl \
