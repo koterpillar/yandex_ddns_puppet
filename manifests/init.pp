@@ -28,6 +28,18 @@ class yandex_ddns (
       content => file('yandex_ddns/functions.sh'),
     }
 
+    file { "$directory/authenticator.sh":
+      ensure  => present,
+      mode    => '0755',
+      content => file('yandex_ddns/authenticator.sh'),
+    }
+
+    file { "$directory/cleanup.sh":
+      ensure  => present,
+      mode    => '0755',
+      content => file('yandex_ddns/cleanup.sh'),
+    }
+
     file { "/etc/systemd/system/yandex_ddns.service":
         ensure  => file,
         content => file('yandex_ddns/yandex_ddns.service'),
