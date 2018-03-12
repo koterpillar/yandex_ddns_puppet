@@ -1,6 +1,8 @@
-#!/bin/sh -e
+#!/bin/sh
 
-. $(dirname $0)/environment
+set -e
+
+. $(dirname $0)/functions.sh
 
 # Get the current address
 ADDRESS=$(
@@ -9,13 +11,7 @@ ADDRESS=$(
     sed 's/Current Address: //'
 )
 
-CONFIG=$(curl \
-    -s \
-    -H "PddToken: $TOKEN" \
-    $BASE_URL/list\?domain=$DOMAIN
-)
-
-CURRENT_ADDRESS=$(echo $CONFIG | jq -r '.records[] | select(.type == "A") | .content')
+CURRENT_ADDRESS=$(get_record_id A '' content)
 
 if [ $ADDRESS = $CURRENT_ADDRESS ]
 then

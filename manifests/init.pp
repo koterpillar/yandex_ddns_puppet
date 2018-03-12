@@ -17,9 +17,15 @@ class yandex_ddns (
 
     file { "$directory/update":
         ensure  => present,
-        mode    => '0700',
+        mode    => '0755',
         content => file('yandex_ddns/update'),
         notify  => Service['yandex_ddns'],
+    }
+
+    file { "$directory/functions.sh":
+      ensure  => present,
+      mode    => '0755',
+      content => file('yandex_ddns/functions.sh'),
     }
 
     file { "/etc/systemd/system/yandex_ddns.service":
@@ -50,7 +56,7 @@ class yandex_ddns (
 
     file { "$directory/update-cname":
         ensure  => present,
-        mode    => '0700',
+        mode    => '0755',
         content => file('yandex_ddns/update-cname'),
     }
 }

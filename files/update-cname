@@ -1,19 +1,13 @@
-#!/bin/sh -e
+#!/bin/sh
 
-. $(dirname $0)/environment
+set -e
+
+. $(dirname $0)/functions.sh
 
 # Get the current domain list
-CURRENT_TARGET=$(curl \
-    -s \
-    -H "PddToken: $TOKEN" \
-    $BASE_URL/list\?domain=$DOMAIN | \
-jq -r '.records[] | select(.type == "CNAME") | select(.subdomain == "'$1'") | .content')
+CURRENT_TARGET=$(get_record_id CNAME $1 content)
 
 if [ "$CURRENT_TARGET" != "$DOMAIN." ]
 then
-    curl \
-        -s \
-        -H "PddToken: $TOKEN" \
-        -d "domain=$DOMAIN&type=CNAME&subdomain=$1&content=$DOMAIN." \
-        $BASE_URL/add
+    add_record $1 CNAME $DOMAIN.
 fi
