@@ -19,7 +19,7 @@ then
     exit 0
 fi
 
-RECORD_ID=$(echo $CONFIG | jq -r '.records[] | select(.type == "A") | .record_id')
+RECORD_ID=$(get_record_id A '')
 
 # Update the address
 curl \
