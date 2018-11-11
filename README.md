@@ -13,6 +13,7 @@ It requires an [API token](https://pddimp.yandex.ru/api2/admin/get_token).
 
 class { 'yandex_ddns':
   domain    => 'example.com',
+  provider  => 'yandex',  # or '1cloud'
   token     => '123456789ABCDEF0000000000000000000000000000000000000',
 }
 

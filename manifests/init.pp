@@ -1,5 +1,6 @@
 class yandex_ddns (
     $domain,
+    $provider,
     $token,
 ) {
     $directory = "/opt/yandex_ddns"
@@ -25,7 +26,7 @@ class yandex_ddns (
     file { "$directory/functions.sh":
       ensure  => present,
       mode    => '0755',
-      content => file('yandex_ddns/functions.sh'),
+      content => file("yandex_ddns/functions.$provider.sh"),
     }
 
     file { "$directory/authenticator.sh":
