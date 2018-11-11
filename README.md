@@ -21,3 +21,8 @@ class { 'yandex_ddns':
 yandex_ddns::cname { 'www':
 }
 ```
+
+## Certbot authenticator
+
+When a `yandex_ddns` is provisioned, an `/opt/yandex_ddns/authenticator.sh` and
+`/opt/yandex_ddns/cleanup.sh` are provided for Certbot authenticator.
