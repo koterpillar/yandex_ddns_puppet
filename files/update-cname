@@ -4,10 +4,4 @@ set -e
 
 . $(dirname $0)/functions.sh
 
-# Get the current domain list
-CURRENT_TARGET=$(get_record_id CNAME $1 content)
-
-if [ "$CURRENT_TARGET" != "$DOMAIN." ]
-then
-    add_record $1 CNAME $DOMAIN.
-fi
+ensure_cname $1

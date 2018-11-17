@@ -11,7 +11,7 @@ ADDRESS=$(
     sed 's/Current Address: //'
 )
 
-CURRENT_ADDRESS=$(get_record_id A '' content)
+CURRENT_ADDRESS=$(get_record_ip A '')
 
 if [ $ADDRESS = $CURRENT_ADDRESS ]
 then
@@ -22,8 +22,4 @@ fi
 RECORD_ID=$(get_record_id A '')
 
 # Update the address
-curl \
-    -s \
-    -H "PddToken: $TOKEN" \
-    -d "domain=$DOMAIN&record_id=$RECORD_ID&content=$ADDRESS" \
-    $BASE_URL/edit
+set_record_ip $record_id $ADDRESS
