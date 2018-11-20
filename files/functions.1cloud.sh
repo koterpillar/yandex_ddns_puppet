@@ -71,6 +71,13 @@ add_txt_record () {
     content=$2
 
     request recordtxt -d '{"DomainId":"'$(get_domain_id)'","Name":"'$subdomain.$DOMAIN'","HostName":"'$subdomain.$DOMAIN'","Text":"'$content'"}'
+
+    STATE=
+    while [ "$STATE" != Active ]
+    do
+        sleep 1
+        STATE=$(get_record_attr TXT $subdomain State)
+    done
 }
 
 ensure_cname () {
