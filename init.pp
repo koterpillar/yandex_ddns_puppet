@@ -26,7 +26,7 @@ class yandex_ddns (
     file { "$directory/functions.sh":
       ensure  => present,
       mode    => '0755',
-      content => file("yandex_ddns/functions.$provider.sh"),
+      content => file("yandex_ddns/functions.${provider}.sh"),
     }
 
     file { "$directory/authenticator.sh":

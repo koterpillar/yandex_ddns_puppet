@@ -13,6 +13,7 @@ It requires an [API token](https://pddimp.yandex.ru/api2/admin/get_token).
 
 class { 'yandex_ddns':
   domain    => 'example.com',
+  provider  => 'yandex',  # or '1cloud'
   token     => '123456789ABCDEF0000000000000000000000000000000000000',
 }
 
@@ -21,3 +22,8 @@ class { 'yandex_ddns':
 yandex_ddns::cname { 'www':
 }
 ```
+
+## Certbot authenticator
+
+When a `yandex_ddns` is provisioned, an `/opt/yandex_ddns/authenticator.sh` and
+`/opt/yandex_ddns/cleanup.sh` are provided for Certbot authenticator.
