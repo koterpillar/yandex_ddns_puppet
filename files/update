@@ -5,15 +5,11 @@ set -e
 . $(dirname $0)/functions.sh
 
 # Get the current address
-ADDRESS=$(
-    curl -s http://ipdetect.dnspark.com/ | \
-    grep 'Current Address:' | \
-    sed 's/Current Address: //'
-)
+ADDRESS=$(curl -s https://ifconfig.me)
 
 CURRENT_ADDRESS=$(get_record_ip A '')
 
-if [ $ADDRESS = $CURRENT_ADDRESS ]
+if [ "$ADDRESS" = "$CURRENT_ADDRESS" ]
 then
     echo "Address is current."
     exit 0
@@ -22,4 +18,4 @@ fi
 RECORD_ID=$(get_record_id A '')
 
 # Update the address
-set_record_ip $record_id $ADDRESS
+set_record_ip $RECORD_ID $ADDRESS
