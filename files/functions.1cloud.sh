@@ -80,7 +80,12 @@ add_txt_record () {
     done
 }
 
-ensure_cname () {
+check_cname () {
+    subdomain=$1
+    get_record_attr CNAME $subdomain HostName | grep -qE '^@$'
+}
+
+set_cname () {
     subdomain=$1
     current_target=$(get_record_attr CNAME $subdomain HostName)
 

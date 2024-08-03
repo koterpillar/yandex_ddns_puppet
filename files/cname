@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -eu
+
+. $(dirname $0)/functions.sh
+
+OP="$1"
+shift
+
+case "$OP" in
+    set)
+        set_cname "$1"
+        ;;
+    check)
+        check_cname "$1"
+        ;;
+    *)
+        echo "Unknown operation: $OP" >&2
+        exit 1
+        ;;
+esac

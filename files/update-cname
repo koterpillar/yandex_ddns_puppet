@@ -1,7 +1,0 @@
-#!/bin/sh
-
-set -e
-
-. $(dirname $0)/functions.sh
-
-ensure_cname $1

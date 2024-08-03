@@ -67,9 +67,9 @@ class yandex_ddns (
         ensure => latest,
     }
 
-    file { "$directory/update-cname":
+    file { "$directory/cname":
         ensure  => present,
         mode    => '0755',
-        content => file('yandex_ddns/update-cname'),
+        content => file('yandex_ddns/cname'),
     }
 }
